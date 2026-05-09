@@ -6,10 +6,15 @@
 // Buttons (.btn-gold, .btn-nav) MUST be defined here in scoped CSS, not in Base.astro.
 
 const { topic, niche, faq, aboutText } = Astro.props;
-// Lowercase a label while preserving all-caps tokens (CEO, CFO, CMO, etc.).
+// Lowercase a label while preserving all-caps tokens (CEO, CFO, CMO, etc.)
+// and brand-locked terms ("Afformations" must stay capitalized).
+const BRAND_LOCK = new Set(['Afformations', 'Afformations®']);
 function smartLower(label) {
   if (!label) return label;
-  return String(label).split(' ').map(w => /^[A-Z]{2,}[®™]?$/.test(w) ? w : w.toLowerCase()).join(' ');
+  return String(label).split(' ').map(w => {
+    if (BRAND_LOCK.has(w)) return w;
+    return /^[A-Z]{2,}[®™]?$/.test(w) ? w : w.toLowerCase();
+  }).join(' ');
 }
 const currentYear = new Date().getFullYear();
 
@@ -167,12 +172,12 @@ strong{font-weight:600;color:var(--black)}
 
   <section class="content-section">
     <div class="section-label">Why You Are Still Stuck</div>
-    <h2>You do not have a {topicLower} problem. <em>You have an Invisible Brake™ problem.</em></h2>
-    <p>Here is what no one in the {topicLower} space will tell you: the ceiling you keep hitting is not caused by the wrong goal, the wrong affirmation, or the wrong morning routine. It is caused by a set of subconscious neural performance patterns that actively counteract every forward move you make. Affirmations alone cannot reach those patterns. Afformations® can.</p>
-    <p>Dr. Noah St. John named this pattern the Invisible Brake. He spent 28 years developing the only method that releases it. His clients have generated over $3 billion in results across 150+ countries.</p>
-    <p>You are flooring the gas with the parking brake locked. No new affirmation, no new manifestation practice, no new vision board, and no Afformations® program alone fixes that. Only releasing the Invisible Brake does.</p>
+    <h2>Affirmations leave the Invisible Brake™ in place. <em>Afformations® release it.</em></h2>
+    <p>The ceiling you keep hitting after years of affirmations, vision boards, and morning routines is not caused by lack of discipline or the wrong words. It is caused by a set of subconscious neural performance patterns that affirmations cannot reach. Dr. Noah St. John named these patterns the Invisible Brake™ and spent 28 years developing the only method that releases them — Afformations®.</p>
+    <p>Affirmations declare: "I am wealthy." The subconscious responds with doubt. The brake stays locked. Afformations® ask the empowering question: "Why am I so wealthy?" The subconscious accepts the premise and starts seeking evidence. The brake releases.</p>
+    <p>This is why Dr. Noah St. John's clients have generated over $3 billion in results across 150+ countries. They stopped pushing the accelerator harder and started releasing the brake.</p>
     <div class="pull-quote">
-      "When you release the Invisible Brake, your life accelerates. Affirmations declare. Afformations® direct the subconscious to seek evidence. That is the difference."<br /><br />Dr. Noah St. John
+      "Affirmations declare. Afformations® direct the subconscious to seek evidence. That is the difference between trying harder and finally accelerating."<br /><br />Dr. Noah St. John
     </div>
   </section>
 
