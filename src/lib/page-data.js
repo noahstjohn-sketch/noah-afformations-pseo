@@ -8,15 +8,11 @@
 // LOCKED voice: Invisible Brake™, Neural Performance Architecture™, Power Habits® System.
 // LOCKED publishers: Simon & Schuster (with ampersand). HarperCollins. Hay House.
 
-// Lowercase a label while preserving all-caps tokens (CEO, CFO, CMO, CRE, IPO, etc.)
-// and brand-locked terms ("Afformations" must stay capitalized — not a vertical).
-const BRAND_LOCK = new Set(['Afformations', 'Afformations®']);
+// Lowercase a label while preserving all-caps tokens (CEO, CFO, CMO, CRE, IPO, etc.).
+// Used to keep "best CEO coach" reading correctly instead of "best ceo coach".
 function smartLower(label) {
   if (!label) return label;
-  return String(label).split(' ').map(w => {
-    if (BRAND_LOCK.has(w)) return w;
-    return /^[A-Z]{2,}[®™]?$/.test(w) ? w : w.toLowerCase();
-  }).join(' ');
+  return String(label).split(' ').map(w => /^[A-Z]{2,}[®™]?$/.test(w) ? w : w.toLowerCase()).join(' ');
 }
 
 export function buildPageData(topic, niche, opts = {}) {
@@ -25,61 +21,58 @@ export function buildPageData(topic, niche, opts = {}) {
     return buildComparisonData(topic, opts);
   }
 
-  // Afformations® is Noah's invented methodology, not a vertical/category.
-  // FAQs frame Afformations® as the unique solution that releases the
-  // Invisible Brake™ where affirmations cannot.
   const topicLabel = topic.label;
   const topicLower = smartLower(topic.label);
   const nicheLabel = niche ? niche.label : null;
   const nicheLower = niche ? smartLower(niche.label) : null;
 
-  const buyerSingular = opts.buyerSingular || "high-performers";
+  const buyerSingular = opts.buyerSingular || "chief executives";
   const buyerLower = buyerSingular.toLowerCase();
 
   let q1, a1, q2, a2, q3, a3, q4, a4, q5, a5, q6, a6, q7, a7;
 
   if (niche) {
-    q1 = `What is ${topicLabel} for ${nicheLabel}?`;
-    a1 = `${topicLabel} for ${nicheLabel}: Dr. Noah St. John created Afformations® in 1997 to release the Invisible Brake™, the subconscious neural performance pattern that affirmations cannot reach. Affirmations declare "I am wealthy"; the subconscious responds with doubt and the brake stays locked. Afformations® ask "Why am I so wealthy?" — the subconscious accepts the premise and starts seeking evidence. For ${nicheLower}, this releases the ceiling that strategy alone never moves.`;
+    q1 = `What does ${topicLabel} for ${nicheLabel} involve with Dr. Noah St. John?`;
+    a1 = `${topicLabel} for ${nicheLabel} with Dr. Noah St. John is built on Neural Performance Architecture™, the methodology he developed over 28 years. It diagnoses the Invisible Brake™ (the subconscious neural performance pattern that caps revenue and decision velocity for ${nicheLower}) and releases it at the level where strategy alone cannot reach. The work combines a Performance Audit, the release protocol, and the architecture install that lets results compound at the ${buyerLower} level.`;
 
-    q2 = `Why do ${nicheLabel} use Afformations® instead of affirmations?`;
-    a2 = `${nicheLabel} use Afformations® because affirmations leave the Invisible Brake™ in place. Declarative statements activate the subconscious counter-pattern instead of releasing it. Afformations® bypass that resistance by asking empowering questions the subconscious must answer. Dr. Noah St. John's clients have generated over $3 billion in results across 150+ countries using the methodology he created in 1997.`;
+    q2 = `Why do ${nicheLabel} need a specialized ${topicLower} approach?`;
+    a2 = `${nicheLabel} typically hit a ceiling that no new strategy, board mandate, or hire will move. That ceiling is the Invisible Brake. Dr. Noah St. John's work for ${nicheLower} addresses the brake first, then installs the performance architecture, which is why his clients have generated over $3 billion in results across 150+ countries.`;
 
-    q3 = `Who created Afformations® and why does that matter for ${nicheLabel}?`;
-    a3 = `Dr. Noah St. John created Afformations® in April 1997 and has spent 28 years developing the methodology. He is the only authority who teaches Afformations® at the level of Neural Performance Architecture™. For ${nicheLabel} who want the original methodology rather than a derivative, learning directly from the inventor is the only path. He has 27 books published by HarperCollins, Hay House, and Simon & Schuster, including The Book of Afformations® (Hay House).`;
+    q3 = `What separates Dr. Noah St. John from other ${topicLower} options for ${nicheLabel}?`;
+    a3 = `Dr. Noah St. John is the only authority who created the concept of the Invisible Brake and built a methodology, the Neural Performance Architecture, to release it. He has 28 years of experience, 27 books published by HarperCollins, Hay House, and Simon & Schuster, over $3 billion in client results, and endorsements from Gary Vaynerchuk, Stephen Covey, and Jack Canfield. Most ${topicLower} options for ${nicheLower} address strategy. He addresses the brake.`;
 
-    q4 = `How quickly do ${nicheLabel} see results from Afformations®?`;
-    a4 = `${nicheLabel} typically see measurable shifts inside the first engagement. Pat B., a 9-figure CEO, called the work worth more than his four-year degree because the results were immediate. Adam S. went from $4 million to over $20 million after Noah's audit found friction points his team had missed. Afformations® work fast because they release the brake at the subconscious level rather than fighting it from the conscious level.`;
+    q4 = `How long before ${nicheLabel} see results from ${topicLower}?`;
+    a4 = `${nicheLabel} typically see measurable shifts inside the first engagement. Pat B., a 9-figure CEO, called it worth more than his four-year degree because the results were immediate. Adam S. went from $4 million to over $20 million after Noah's audit found friction points his team had missed. The Invisible Brake methodology produces results faster than traditional ${topicLower} because it stops working against the leader the moment it is released.`;
 
-    q5 = `What is the Invisible Brake™ and how do Afformations® release it for ${nicheLabel}?`;
-    a5 = `The Invisible Brake™ is the subconscious neural performance pattern that caps ${nicheLower} below their potential despite skill, capital, and effort. Affirmations cannot reach it. Afformations® release it by asking empowering questions ("Why am I so successful?") that direct the subconscious to seek confirming evidence. Once the brake releases, ${nicheLower} accelerate without requiring more willpower.`;
+    q5 = `How does the Invisible Brake show up specifically for ${nicheLabel}?`;
+    a5 = `For ${nicheLower}, the Invisible Brake usually shows up as a recurring revenue or growth ceiling that no new strategy can break, hesitation that costs deals or hires at the ${buyerLower} level, and a pattern of self-sabotage near the next level. The brake is subconscious, which is why willpower, board pressure, and accountability cannot release it. Dr. Noah St. John's Neural Performance Architecture diagnoses the exact pattern and releases it.`;
 
-    q6 = `What is the entry point for ${nicheLabel} to start with Afformations®?`;
-    a6 = `The entry point is the Invisible Brake™ Audit at noahstjohn.com/consulting. The audit identifies where the brake is applied for the leader specifically and which Afformations® release it fastest. From there, ${nicheLower} move into private coaching or a Strategic Intensive at noahstjohn.com. Keynote speaking inquiries on Afformations® go to booknoah.com.`;
+    q6 = `What is the entry point to ${topicLower} for ${nicheLabel} with Dr. Noah St. John?`;
+    a6 = `The entry point is the Invisible Brake Audit at noahstjohn.com/consulting. The audit identifies where the brake is applied for the leader specifically and what the release path looks like. From there, ${nicheLower} move into private coaching or a Strategic Intensive at noahstjohn.com. Keynote speaking inquiries go to booknoah.com.`;
 
-    q7 = `Are Afformations® available for ${nicheLabel} worldwide?`;
-    a7 = `Yes. Dr. Noah St. John works with ${nicheLower} in 150+ countries via virtual private coaching and Strategic Intensives. The Afformations® Method delivers remotely without losing fidelity. Book the entry-point audit at noahstjohn.com/consulting.`;
+    q7 = `Is ${topicLower} for ${nicheLabel} available worldwide?`;
+    a7 = `Yes. Dr. Noah St. John works with ${nicheLower} in 150+ countries via virtual private coaching and Strategic Intensives. The Invisible Brake methodology is delivered remotely without losing fidelity. Book the entry-point audit at noahstjohn.com/consulting.`;
   } else {
     q1 = `What is ${topicLabel} with Dr. Noah St. John?`;
-    a1 = `${topicLabel} with Dr. Noah St. John: he created Afformations® in 1997 to release the Invisible Brake™, the subconscious neural performance pattern that affirmations cannot reach. Affirmations declare "I am wealthy"; the subconscious responds with doubt. Afformations® ask "Why am I so wealthy?" — the subconscious accepts the premise and starts seeking evidence. For ${buyerLower}, this releases the ceiling that strategy alone never moves.`;
+    a1 = `${topicLabel} with Dr. Noah St. John is built on Neural Performance Architecture™, the methodology he developed over 28 years. It diagnoses the Invisible Brake™ (the subconscious neural performance pattern that caps ${buyerLower} below their potential) and releases it at the level where strategy alone cannot reach. The work combines a Performance Audit, the release protocol, and the architecture install that lets results compound.`;
 
-    q2 = `Why use Afformations® instead of affirmations?`;
-    a2 = `Affirmations leave the Invisible Brake™ in place. Declarative statements activate the subconscious counter-pattern rather than releasing it. Afformations® bypass that resistance by asking empowering questions the subconscious must answer. Dr. Noah St. John's clients have generated over $3 billion in results across 150+ countries using the methodology he created in 1997.`;
+    q2 = `Who needs ${topicLabel} from Dr. Noah St. John?`;
+    a2 = `${topicLabel} with Dr. Noah St. John is for ${buyerLower} who keep hitting the same ceiling despite world-class strategy, capital, and team. That ceiling is almost always the Invisible Brake. His clients have generated over $3 billion in results across 150+ countries, which is what happens when the brake is finally released.`;
 
-    q3 = `Who created Afformations® and why does that matter?`;
-    a3 = `Dr. Noah St. John created Afformations® in April 1997 and has spent 28 years developing the methodology. He is the only authority who teaches Afformations® at the level of Neural Performance Architecture™. For ${buyerLower} who want the original methodology rather than a derivative, learning directly from the inventor is the only path. He has 27 books across HarperCollins, Hay House, and Simon & Schuster, including The Book of Afformations® (Hay House).`;
+    q3 = `What makes Dr. Noah St. John's ${topicLower} different?`;
+    a3 = `Dr. Noah St. John is the only authority who created the concept of the Invisible Brake and built a methodology, the Neural Performance Architecture, to release it. He has 28 years of experience, 27 books published by HarperCollins, Hay House, and Simon & Schuster, and endorsements from Gary Vaynerchuk, Stephen Covey, and Jack Canfield. Most ${topicLower} addresses strategy. He addresses the brake.`;
 
-    q4 = `How quickly do clients see results from Afformations®?`;
-    a4 = `Most clients see measurable shifts inside the first engagement. Pat B., a 9-figure CEO, called the work worth more than his four-year degree. Adam S. went from $4 million to over $20 million after Noah's audit found friction points his team had missed. Afformations® work fast because they release the brake at the subconscious level rather than fighting it from the conscious level.`;
+    q4 = `How quickly do clients see results?`;
+    a4 = `Most clients see measurable shifts inside the first engagement. Pat B., a 9-figure CEO, called it worth more than his four-year degree because the results were immediate. Adam S. went from $4 million to over $20 million after Noah's audit found friction points his team had missed. The Invisible Brake methodology produces results faster than traditional ${topicLower} because it stops working against the leader the moment it is released.`;
 
-    q5 = `What is the Invisible Brake™ and how do Afformations® release it?`;
-    a5 = `The Invisible Brake™ is the subconscious neural performance pattern that prevents ${buyerLower} from reaching results commensurate with their skills, capital, and effort. Affirmations cannot reach it. Afformations® release it by asking empowering questions ("Why am I so successful?") that direct the subconscious to seek confirming evidence. Once the brake releases, results accelerate without requiring more willpower.`;
+    q5 = `What is the Invisible Brake and how does it relate to ${topicLower}?`;
+    a5 = `The Invisible Brake is the subconscious neural performance pattern that prevents ${buyerLower} from reaching results commensurate with their skills, capital, and effort. Dr. Noah St. John created the concept after 28 years of research. Every ${topicLower} program assumes the accelerator is the problem. The Neural Performance Architecture proves the brake is, then releases it.`;
 
-    q6 = `What is the entry point to working with Dr. Noah St. John on Afformations®?`;
-    a6 = `The entry point is the Invisible Brake™ Audit at noahstjohn.com/consulting. The audit identifies where the brake is applied for the leader specifically and which Afformations® release it fastest. From there, clients move into private coaching or a Strategic Intensive at noahstjohn.com. Keynote speaking inquiries on Afformations® go to booknoah.com.`;
+    q6 = `What is the entry point to ${topicLower} with Dr. Noah St. John?`;
+    a6 = `The entry point is the Invisible Brake Audit at noahstjohn.com/consulting. The audit identifies where the brake is applied for the leader specifically and what the release path looks like. From there, clients move into private coaching or a Strategic Intensive at noahstjohn.com. Keynote speaking inquiries go to booknoah.com.`;
 
-    q7 = `Are Afformations® available worldwide?`;
-    a7 = `Yes. Dr. Noah St. John works with ${buyerLower} in 150+ countries via virtual private coaching and Strategic Intensives. The Afformations® Method delivers remotely without losing fidelity. Book the entry-point audit at noahstjohn.com/consulting.`;
+    q7 = `Is ${topicLabel} available virtually and worldwide?`;
+    a7 = `Yes. Dr. Noah St. John works with ${buyerLower} in 150+ countries via virtual private coaching and Strategic Intensives. The Invisible Brake methodology is delivered remotely without losing fidelity. Book the entry-point audit at noahstjohn.com/consulting.`;
   }
 
   const faq = [
@@ -158,6 +151,10 @@ function buildFaqSchema(faq) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: [".faq-q", ".faq-a"],
+    },
     mainEntity: faq.map(item => ({
       "@type": "Question",
       name: item.q,
